@@ -16,8 +16,12 @@ import pyvisa
 
 class INSTRUMENT:
     '''
-    visa_resource: GPIB0::17::INSTR / USB0::0x0AAD::0x014E::101060::INSTR / PXI1Slot2\n
-    timeout (seconds) = 10 seconds default
+    visa_resource: str
+        - GPIB -> GPIB0::17::INSTR
+        - USB -> USB0::0x0AAD::0x014E::101060::INSTR
+        - PXI -> PXI1Slot2
+    
+    timeout: int (seconds) = 10 seconds default
     '''
     def __init__(self, resource: str, timeout: int = 10) -> None:
         RM = pyvisa.ResourceManager()
