@@ -13,7 +13,7 @@ __update__ = '2023.10.10'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' MAIN LIBRARIES '''
-from VISA import INSTRUMENT as VISA
+from instrument_control.VISA import INSTRUMENT as VISA
 
 
 ''' MAIN CLASS

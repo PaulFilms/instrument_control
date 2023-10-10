@@ -11,10 +11,10 @@ __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 from enum import Enum
 
 ''' MAIN LIBRARIES '''
-from INSTRUMENTS.HP_344XX import INSTRUMENT as HP_344XX
-from INSTRUMENTS.FLKE_5XXX import INSTRUMENT as FLKE_5XXX
-from INSTRUMENTS.PXI_DMM import INSTRUMENT as PXI_DMM
-from INSTRUMENTS.PXI_DCPOWER import INSTRUMENT as PXI_DCPOWER
+from instrument_control.INSTRUMENTS.HP_344XX import INSTRUMENT as HP_344XX
+from instrument_control.INSTRUMENTS.FLKE_5XXX import INSTRUMENT as FLKE_5XXX
+from instrument_control.INSTRUMENTS.PXI_DMM import INSTRUMENT as PXI_DMM
+from instrument_control.INSTRUMENTS.PXI_DCPOWER import INSTRUMENT as PXI_DCPOWER
 
 
 
