@@ -24,6 +24,7 @@ class INSTRUMENT(VISA):
     '''
     NMB_FUNCTIONS = [
         'DEVICE_INFO',
+        'CONFIG',
         'MEAS'
     ]
 

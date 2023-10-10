@@ -1,6 +1,10 @@
 r'''
 NI-DCPower (Python module: nidcpower)
 https://nidcpower.readthedocs.io/en/latest/nidcpower.html
+
+TASK:
+    - Comprobar el nivel máximo de salida para evitar crasheo
+WARNINGS:
 '''
 
 __update__ = '2023.10.10'
@@ -19,6 +23,7 @@ class INSTRUMENT:
     
     NMB_FUNCTIONS = [
         'DEVICE_INFO',
+        'RESET',
         'OUTPUT',
         'SET_VOLT',
         'MEAS_VOLT',
@@ -50,28 +55,33 @@ class INSTRUMENT:
         idn = f"{MANUFACTURER},{MODEL},{SERIAL_NUMBER}"
         return idn
 
+    def RESET(self, *args) -> None:
+        '''
+        '''
+        self.session.reset()
+
     def OUTPUT(self, *args) -> None:
         '''
-        arg1: bool = ON / OFF
+        arg0: bool = ON / OFF
         '''
         output: bool = False
         if len(args) > 0:
-            if args[0] == True or args[0] == 1 or args[0] == "1":
+            if args[0] == True or args[0] == 1 or args[0] == "1" or args[0] == "ON":
                 output = True
         self.session.output_enabled = output
     
     def SET_VOLT(self, *args) -> None:
         '''
+        arg0: float = Value (Voltage)
         arg1: bool = Channel
-        arg2: float = Value (Voltage)
         '''
-        channel: int = args[0]
-        value: float = args[1]
+        channel: int = args[1]
+        value = float(args[0])
         self.session.channels[channel].voltage_level = value
        
     def MEAS_VOLT(self, *args) -> float:
         '''
-        arg1: bool = Channel
+        arg0: bool = Channel
         '''
         channel: int = args[0]
         meas = self.session.channels[channel].measure(self.type_voltage)
@@ -79,16 +89,17 @@ class INSTRUMENT:
 
     def SET_CURR(self, *args) -> None:
         '''
+        arg0: float = Value (Current)
         arg1: bool = Channel
-        arg2: float = Value (Current)
+        
         '''
-        channel: int = args[0]
-        value: float = args[1]
+        channel: int = args[1]
+        value = float(args[0])
         self.session.channels[channel].current_level = value
 
     def MEAS_CURR(self, *args) -> float:
         '''
-        arg1: bool = Channel
+        arg0: bool = Channel
         '''
         channel: int = args[0]
         meas = self.session.channels[channel].measure(self.type_current)
