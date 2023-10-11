@@ -4,7 +4,7 @@ TASK:
 WARNINGS:
 '''
 
-__update__ = '2023.10.10'
+__update__ = '2023.10.11'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -15,10 +15,10 @@ from instrument_control.INSTRUMENTS.HP_344XX import INSTRUMENT as HP_344XX
 from instrument_control.INSTRUMENTS.FLKE_5XXX import INSTRUMENT as FLKE_5XXX
 from instrument_control.INSTRUMENTS.PXI_DMM import INSTRUMENT as PXI_DMM
 from instrument_control.INSTRUMENTS.PXI_DCPOWER import INSTRUMENT as PXI_DCPOWER
+from instrument_control.INSTRUMENTS.PXI_565X import INSTRUMENT as PXI_565X
 
 
-
-''' MAIN CLASS
+''' MAIN
 -------------------------------------------------------- '''
 
 class SPECIAL_INSTRUMENTS(Enum):
@@ -28,4 +28,5 @@ class SPECIAL_INSTRUMENTS(Enum):
     FLKE_5XXX = FLKE_5XXX
     PXI_DMM = PXI_DMM
     PXI_DCPOWER = PXI_DCPOWER
+    PXI_565X = PXI_565X
     

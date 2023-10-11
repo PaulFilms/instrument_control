@@ -5,19 +5,30 @@ Especial functions for the device:
     - MODEL: 344XX
 
 TASK:
-    - INCOMPLETE
+    - MEASURES Enum Class
+    - CONFIG FUNCTIONS
 WARNINGS:
 '''
 
-__update__ = '2023.10.10'
+__update__ = '2023.10.11'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
+
+''' SYSTEM LIBRARIES '''
+from enum import Enum
 
 ''' MAIN LIBRARIES '''
 from instrument_control.VISA import INSTRUMENT as VISA
 
 
-''' MAIN CLASS
+''' MAIN
 -------------------------------------------------------- '''
+
+class MEASURES(Enum):
+    VOLTAGE = "VOLT"
+    CURRENT = "CURR"
+    RESISTANCE_2W = ""
+    RESISTANCE_4W = ""
+    FREQUENCY = "FREQ"
 
 class INSTRUMENT(VISA):
     '''
