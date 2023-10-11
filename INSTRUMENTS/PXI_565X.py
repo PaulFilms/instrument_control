@@ -41,7 +41,10 @@ class INSTRUMENT:
         '''
         '''
         self.sig_gen = PXIe_5654(resource)
-        self.sig_gen.initiate()
+        # self.sig_gen.initiate()
+    
+    def CLOSE(self) -> None:
+        self.sig_gen.close()
 
     def DEVICE_INFO(self) -> str:
         '''
@@ -74,15 +77,18 @@ class INSTRUMENT:
         unit = None
         if len(args) > 1 and args[1] in [e.name for e in UNITS]:
             unit = str(args[1])
-            factor = UNITS["unit"].value.factor
+            factor = UNITS[unit].value.factor
             value = value * factor
-        self.sig_gen.rf_frequency(value) # Hz
+        self.sig_gen.rf_frequency = value # Hz
     
     def LEVEL(self, *args):
         '''
         Set POWER LEVEL value
         arg0: float = Level
         arg1: str = Unit
+        
+        INCOMPLETE:
+        - Only dBm
         '''
         value = float(args[0])
-        self.sig_gen.rf_power(value) # dBm
+        self.sig_gen.rf_power = value # dBm
