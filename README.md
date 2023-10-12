@@ -12,3 +12,7 @@ Currently available devices:
 - HP_344XX
 - PXI_DMM
 - PXI_DCPOWER
+
+## Warnings:
+- INTRUMENTS > PXI_565X:
+    It necessary to have installed some drivers from NI
