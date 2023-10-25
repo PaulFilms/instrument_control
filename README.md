@@ -16,3 +16,4 @@ Currently available devices:
 ## Warnings:
 - INTRUMENTS > PXI_565X:
     It necessary to have installed some drivers from NI
+- 

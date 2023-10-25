@@ -1,9 +1,8 @@
-r'''
-NI-DMM (Python module: nidmm)
+'''
+`NI-DMM` (Python module: nidmm)
 https://nidmm.readthedocs.io/en/latest/nidmm.html
 '''
-
-__update__ = '2023.10.10'
+__update__ = '2023.10.25'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -40,7 +39,6 @@ class INSTRUMENT:
         ]
     
     def __init__(self, resource: str = ""):
-        import nidmm
         self.session = nidmm.Session(resource)
     
     def CLOSE(self) -> None:
@@ -57,9 +55,15 @@ class INSTRUMENT:
         return idn
 
     def SELF_TEST(self, *args) -> None:
+        '''
+        No args
+        '''
         self.session.self_test()
 
     def SELF_CAL(self, *args) -> None:
+        '''
+        No args
+        '''
         self.session.self_cal()
 
     def MEAS_INFO(self, *args) -> str:
@@ -73,6 +77,10 @@ class INSTRUMENT:
         return config
 
     def MEAS(self, *args) -> float:
+        '''
+        No args
+        Get measaure like float value
+        '''
         measure = self.session.read()
         try:
             measure = float(measure)
@@ -83,6 +91,8 @@ class INSTRUMENT:
 
     def CONFIG_VDC(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 
@@ -103,6 +113,8 @@ class INSTRUMENT:
     
     def CONFIG_VAC(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 
@@ -123,6 +135,8 @@ class INSTRUMENT:
     
     def CONFIG_RES_2W(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 
@@ -143,6 +157,8 @@ class INSTRUMENT:
 
     def CONFIG_RES_4W(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 
@@ -163,6 +179,8 @@ class INSTRUMENT:
 
     def CONFIG_IDC(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 
@@ -183,6 +201,8 @@ class INSTRUMENT:
 
     def CONFIG_IAC(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 
@@ -203,6 +223,8 @@ class INSTRUMENT:
 
     def CONFIG_FREQ(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 
@@ -223,6 +245,8 @@ class INSTRUMENT:
 
     def CONFIG_TEMP(self, *args) -> None:
         '''
+        arg1: int = RANGE (-1 AUTO)
+        arg2: float = DIGITS RESOLUTION (6.5)
         '''
         ## RANGE
         if len(args) > 0 and args[0] and args[0] != "": 

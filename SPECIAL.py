@@ -1,9 +1,10 @@
-r'''
-SPECIAL INSTRUMENTS
-TASK:
-WARNINGS:
 '''
+# SPECIAL INSTRUMENTS`
 
+\n`TASK:`
+\n`WARNINGS:`
+    - If PXI_565X is imported and doesn't have the drivers, it causes a crash
+'''
 __update__ = '2023.10.11'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
