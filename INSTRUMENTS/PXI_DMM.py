@@ -101,7 +101,7 @@ class INSTRUMENT:
             range_value: float = -1
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
         ## CONFIG
