@@ -1,4 +1,4 @@
-r'''
+'''
 Especial functions for the device:
     - TYPE: CALIBRATOR
     - MANUFACTURER: FLUKE
@@ -25,10 +25,12 @@ class INSTRUMENT(VISA):
         'MEAS',
         'OPER',
         'STBY',
-        'OUT_VPP'
+        'OUT_VPP',
+        'TWO_WIRES',
+        'FOUR_WIRES'
     ]
 
-    def __init__(self, resource=str, timeout: int = 10):
+    def __init__(self, resource: str = "", timeout: int = 10):
         super().__init__(resource, timeout)
         self.WR("*CLS")
         IDN = self.RD("*IDN?; *WAI")
@@ -55,20 +57,70 @@ class INSTRUMENT(VISA):
         # self.WR("ESE 1")
         # self.WR("SRE 32")
         self.WR("OUT 0 HZ")
-        self.WR("OUT 0 V")
+        self.WR("OUT 0")
         self.WR("STBY")
         self.OPC()
 
     def OUT_VPP(self, *args):
         '''
         arg1: float = Value
-        arg2: str = Unit
         '''
         VPP: float = (float(args[0])*2**0.5)*2
         self.WR("*CLS")
         self.WR(f"OUT {VPP}{args[1]}")
         self.OPC()
 
+    def TWO_WIRES(self, *args) -> None:
+        '''
+        `arg1:` float = Resistance Value
+
+        \n`5500(s) Parameter: `
+            - NONE (Turns off impedance compensation circuitry)
+            - WIRE2 (Turns on the 2-wire impedance compensation circuitry)
+            - WIRE4 (Turns on the 4-wire impedance compensation circuitry)
+        \n`Example: `
+            - ZCOMP WIRE2
+        '''
+        
+        ## ARG1 (Resistance Value)
+        if len(args) > 0 and args[0] and args[0] != "": 
+            value = float(args[0])
+        else: 
+            value: float = 100000
+        
+        ## ZCOMP
+        if self.MODEL == "5700":
+            if value < 100000:
+                self.WR(f"RCOMP ON")
+            else:
+                self.WR(f"RCOMP OFF")
+        if self.MODEL == "5500":
+            if value > 100000:
+                self.WR(f"ZCOMP NONE")
+            else:
+                self.WR(f"ZCOMP WIRE2")
 
     def FOUR_WIRES(self, *args) -> None:
-        pass
+        '''
+        `arg1:` float = Resistance Value
+        '''
+        ## ARG1 (Resistance Value)
+        if len(args) > 0 and args[0] and args[0] != "": 
+            value = float(args[0])
+        else: 
+            value: float = 10000000
+        
+        ## EXTSENSE
+        if self.MODEL == "5700":
+            if value > 10000000:
+                self.WR(f"EXTSENSE OFF")
+            else:
+                self.WR(f"EXTSENSE ON")
+        if self.MODEL == "5500":
+            if value > 100000:
+                self.WR(f"ZCOMP NONE")
+            else:
+                self.WR(f"ZCOMP WIRE4")
+        
+        # 
+        self.WR(f"*WAI")

@@ -1,16 +1,20 @@
-r'''
+'''
 Especial functions for the device:
     - TYPE: MULTIMETER
     - MANUFACTURER: HP / AGILENT / KEYSIGHT
     - MODEL: 344XX
 
-TASK:
+\n
+`TASK:`
     - MEASURES Enum Class
     - CONFIG FUNCTIONS
-WARNINGS:
+
+\n
+`WARNINGS:`
+    - @
 '''
 
-__update__ = '2023.10.11'
+__update__ = '2023.12.05'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -24,8 +28,10 @@ from instrument_control.VISA import INSTRUMENT as VISA
 -------------------------------------------------------- '''
 
 class MEASURES(Enum):
-    VOLTAGE = "VOLT"
-    CURRENT = "CURR"
+    VOLTAGE_DC = "VOLT:DC"
+    VOLTAGE_AC = "VOLT:AC"
+    CURRENT_DC = "CURR:DC"
+    CURRENT_AC = "CURR:AC"
     RESISTANCE_2W = ""
     RESISTANCE_4W = ""
     FREQUENCY = "FREQ"
@@ -44,8 +50,24 @@ class INSTRUMENT(VISA):
     
     def CONFIG(self, *args) -> None:
         '''
+        arg1: int = RANGE VALUE
+        arg2: float = UNIT
         '''
+        ## ARG1 (RANGE VALUE)
+        range_value: float
+        if len(args) > 0 and args[0] and args[0] != "": 
+            range_value = float(args[0])
+        else: 
+            range_value = -1
+        ## ARG2 (UNIT)
+        unit: str
+        if len(args) > 1 and args[1] and args[1] != "": 
+            unit = ""
+        else: 
+            unit = ""
+        ## 
         self.WR('*CLS')
+        # INCOMPLETE
     
     def MEAS(self, *args) -> float:
         '''

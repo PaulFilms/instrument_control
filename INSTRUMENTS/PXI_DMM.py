@@ -2,7 +2,8 @@
 `NI-DMM` (Python module: nidmm)
 https://nidmm.readthedocs.io/en/latest/nidmm.html
 '''
-__update__ = '2023.10.25'
+
+__update__ = '2023.12.05'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -116,16 +117,17 @@ class INSTRUMENT:
         arg1: int = RANGE (-1 AUTO)
         arg2: float = DIGITS RESOLUTION (6.5)
         '''
-        ## RANGE
+        ## ARG1 (RANGE VALUE)
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
             range_value: float = -1
-        ## DIGITS
+        ## ARG2 (DIGITS VALUE)
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
+        
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.AC_VOLTS,
@@ -145,7 +147,7 @@ class INSTRUMENT:
             range_value: float = -1
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
         ## CONFIG
@@ -167,9 +169,10 @@ class INSTRUMENT:
             range_value: float = -1
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
+        
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.FOUR_WIRE_RES,
@@ -189,7 +192,7 @@ class INSTRUMENT:
             range_value: float = -1
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
         ## CONFIG
@@ -211,7 +214,7 @@ class INSTRUMENT:
             range_value: float = -1
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
         ## CONFIG
@@ -233,7 +236,7 @@ class INSTRUMENT:
             range_value: float = -1
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
         ## CONFIG
@@ -255,7 +258,7 @@ class INSTRUMENT:
             range_value: float = -1
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
-            digits_value = float(args[0])
+            digits_value = float(args[1])
         else: 
             digits_value: float = 6.5
         ## CONFIG
