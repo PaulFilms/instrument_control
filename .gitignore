@@ -1,3 +1,16 @@
-__pycache__
-INSTRUMENTS/__pycache__
-VENV
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+build/
+dist/
+downloads/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/

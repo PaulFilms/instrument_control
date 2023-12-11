@@ -1,44 +1,48 @@
 '''
 `NI-DMM` (Python module: nidmm)
 https://nidmm.readthedocs.io/en/latest/nidmm.html
-'''
 
-__update__ = '2023.12.05'
-__author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
-
-''' SYSTEM LIBRARIES '''
-import nidmm
-
-
-''' MAIN CLASS
--------------------------------------------------------- '''
-
-class INSTRUMENT:
-    '''
-    INCOMPLETE:
+INCOMPLETE:
     - En caso de error hay que devolver un false
     - Hay que cerrar session con self.session.close
     - Al usar range=-1 lo configuramos en AUTO
     - Hay que buscar las opciones de NULL
     - Añadir espera o indicación al terminar el self test y el self cal
-    '''
 
-    NMB_FUNCTIONS = [
-        'DEVICE_INFO',
-        'SELF_TEST',
-        'SELF_CAL',
-        'MEAS_INFO',
-        'MEAS',
-        'CONFIG_VDC',
-        'CONFIG_VAC',
-        'CONFIG_RES_2W',
-        'CONFIG_RES_4W',
-        'CONFIG_IDC',
-        'CONFIG_IAC',
-        'CONFIG_FREQ',
-        'CONFIG_TEMP'
-        ]
-    
+mypyc:
+    mypyc INSTRUMENTS/PXI_DMM.py
+    En el valor -1 para rango auto, estaba re-definiendo la variable, y eso no le gusta a mypyc
+    NMB_FUNCTIONS genera error al indicarlo de esa forma en el class, hay que plantearse sacarlo fuera
+'''
+
+__version__ = '2023.12.12' # + '_Compile'
+__author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
+
+''' SYSTEM LIBRARIES '''
+from typing import List
+import nidmm # type: ignore
+
+
+''' MAIN CLASS
+-------------------------------------------------------- '''
+
+NMB_FUNCTIONS: List[str] = [
+    'DEVICE_INFO',
+    'SELF_TEST',
+    'SELF_CAL',
+    'MEAS_INFO',
+    'MEAS',
+    'CONFIG_VDC',
+    'CONFIG_VAC',
+    'CONFIG_RES_2W',
+    'CONFIG_RES_4W',
+    'CONFIG_IDC',
+    'CONFIG_IAC',
+    'CONFIG_FREQ',
+    'CONFIG_TEMP'
+    ]
+
+class INSTRUMENT:
     def __init__(self, resource: str = ""):
         self.session = nidmm.Session(resource)
     
@@ -99,12 +103,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.DC_VOLTS,
@@ -121,12 +125,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## ARG2 (DIGITS VALUE)
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         
         ## CONFIG
         self.session.configure_measurement_digits(
@@ -144,12 +148,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.TWO_WIRE_RES,
@@ -166,12 +170,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         
         ## CONFIG
         self.session.configure_measurement_digits(
@@ -189,12 +193,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.DC_CURRENT,
@@ -211,12 +215,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.AC_CURRENT,
@@ -233,12 +237,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.FREQ,
@@ -255,12 +259,12 @@ class INSTRUMENT:
         if len(args) > 0 and args[0] and args[0] != "": 
             range_value = float(args[0])
         else: 
-            range_value: float = -1
+            range_value = -1.0
         ## DIGITS
         if len(args) > 1 and args[1] and args[1] != "": 
             digits_value = float(args[1])
         else: 
-            digits_value: float = 6.5
+            digits_value = 6.5
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.TEMPERATURE,
