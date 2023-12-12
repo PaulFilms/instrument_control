@@ -11,6 +11,7 @@ INCOMPLETE:
 
 mypyc:
     mypyc INSTRUMENTS/PXI_DMM.py
+    import nidmm # type: ignore / ** Hay que incluirla en el pip freeze para importarla
     En el valor -1 para rango auto, estaba re-definiendo la variable, y eso no le gusta a mypyc
     NMB_FUNCTIONS genera error al indicarlo de esa forma en el class, hay que plantearse sacarlo fuera
 '''
@@ -20,7 +21,10 @@ __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
 from typing import List
-import nidmm # type: ignore
+
+''' EXTERNAL LIBRARIES '''
+# import mypy_extensions
+import nidmm # type: ignore[import-untyped]
 
 
 ''' MAIN CLASS
@@ -176,7 +180,6 @@ class INSTRUMENT:
             digits_value = float(args[1])
         else: 
             digits_value = 6.5
-        
         ## CONFIG
         self.session.configure_measurement_digits(
                 measurement_function=nidmm.Function.FOUR_WIRE_RES,
