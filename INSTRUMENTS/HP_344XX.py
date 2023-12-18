@@ -19,6 +19,7 @@ __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
 from enum import Enum
+from typing import List
 
 ''' MAIN LIBRARIES '''
 from instrument_control.VISA import INSTRUMENT as VISA
@@ -36,15 +37,15 @@ class MEASURES(Enum):
     RESISTANCE_4W = ""
     FREQUENCY = "FREQ"
 
+NMB_FUNCTIONS: List[str] = [
+    'DEVICE_INFO',
+    'CONFIG',
+    'MEAS'
+]
+
 class INSTRUMENT(VISA):
     '''
     '''
-    NMB_FUNCTIONS = [
-        'DEVICE_INFO',
-        'CONFIG',
-        'MEAS'
-    ]
-
     def __init__(self, resource: str, timeout: int = 10):
         super().__init__(resource, timeout)
     
