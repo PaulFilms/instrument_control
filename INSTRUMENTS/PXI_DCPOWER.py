@@ -5,10 +5,10 @@ NI-DCPower (Python module: nidcpower)
 
 TASK:
     - Comprobar el nivel máximo de salida para evitar crasheo
-    .
+    ... 
 
 WARNINGS:
-    .  
+    ... 
 
 '''
 
@@ -30,11 +30,15 @@ NMB_FUNCTIONS: List[str] = [
     'DEVICE_INFO',
     'RESET',
     'OUTPUT',
-    'SET_VOLT',
-    'MEAS_VOLT',
-    'SET_CURR',
-    'MEAS_CURR'
+    'VOLT_CONF',
+    'CURR_CONF',
+    'VOLT_SET',
+    'CURR_SET',
+    'VOLT_MEAS',
+    'CURR_MEAS',
 ]
+
+BOOLEANS: list = ("TRUE", True, 1, "1", "On", "ON")
 
 class TYPES(Enum):
     VOLTAGE = nidcpower.MeasurementTypes.VOLTAGE
@@ -49,11 +53,17 @@ class INSTRUMENT:
     '''
     def __init__(self, resource: str = ""):
         self.session = nidcpower.Session(resource)
-        self.session.initiate()
-    
+
+        # self.session.voltage_level_autorange = True
+        # self.session.current_level_autorange = True
+        
+        # self.session.initiate()
+
     def CLOSE(self) -> None:
         '''
         '''
+        self.session.output_enabled = False
+        self.session.abort()
         self.session.close()
 
     def DEVICE_INFO(self) -> str:
@@ -69,67 +79,144 @@ class INSTRUMENT:
     def RESET(self, *args) -> None:
         '''
         '''
+        self.session.output_enabled = False
+        self.session.abort()
         self.session.reset()
 
     def OUTPUT(self, *args) -> None:
         '''
-        arg0: bool = ON / OFF
+        arg0: bool = State ON / OFF
+        arg1: str = Channel
         '''
-        output: bool = False
-        if len(args) > 0:
-            if args[0] == True or args[0] == 1 or args[0] == "1" or args[0] == "ON":
-                output = True
-        # self.session.channels[0].output_enabled = True
-        self.session.output_enabled = output
+        ## State
+        state: bool = False
+        if args[0] in BOOLEANS:
+            state = True
+        else:
+            state = False
+        ## Channel
+        channel: str = None
+        if args[1]:
+            channel = str(args[1])
+        ## Output
+        if channel:
+            self.session.channels[channel].output_enabled = state
+            if state:
+                self.session.channels[channel].initiate()
+            else:
+                self.session.channels[channel].abort()
+        else:
+            self.session.output_enabled = state
+            if state:
+                self.session.initiate()
+            else:
+                self.session.abort()
     
-    def SET_VOLT(self, *args) -> None:
+    def VOLT_CONF(self, *args) -> None:
+        '''
+        arg0: str = Channel
+        '''
+        try:
+            channel = int(args[0])
+            if self.session.channels[str(channel)].output_function == OUT_FUNC.VOLTAGE.value:
+                return
+            self.session.channels[str(channel)].output_function = OUT_FUNC.VOLTAGE.value
+            self.session.channels[str(channel)].voltage_level_autorange = True
+            self.session.channels[str(channel)].current_limit_autorange = True
+        except:
+            print("ERROR VOLT_CONF")
+
+    def CURR_CONF(self, *args) -> None:
+        '''
+        arg0: str = Channel
+        '''
+        try:
+            channel = int(args[0])
+            if self.session.channels[str(channel)].output_function == OUT_FUNC.CURRENT.value:
+                return
+            self.session.channels[str(channel)].output_function = OUT_FUNC.CURRENT.value
+            self.session.channels[str(channel)].current_level_autorange = True
+            self.session.channels[str(channel)].voltage_limit_autorange = True
+        except:
+            print("ERROR CURR_CONF, CHANNEL")
+
+    def VOLT_SET(self, *args) -> None:
         '''
         arg0: float = Value (Voltage)
-        arg1: bool = Channel
+        arg1: str = Channel
         '''
+        ## 
         value: float = float(args[0])
-        channel: int = int(args[1])
-        self.session.channels[channel].output_function = OUT_FUNC.VOLTAGE
-        self.session.channels[channel].current_limit = 0.1
+        channel: str = str(args[1])
+        ## 
+        # self.session.channels[channel].voltage_level_autorange = True
+        self.session.channels[channel].voltage_level_range = abs(value)
         self.session.channels[channel].voltage_level = value
-       
-    def MEAS_VOLT(self, *args) -> float:
-        '''
-        arg0: bool = Channel
-        '''
-        channel: int = int(args[0])
-        meas = self.session.channels[channel].measure(TYPES.VOLTAGE)
-        return meas
 
-    def SET_CURR(self, *args) -> None:
+    def CURR_SET(self, *args) -> None:
         '''
         arg0: float = Value (Current)
-        arg1: bool = Channel
-        
+        arg1: str = Channel
         '''
+        ## 
         value: float = float(args[0])
-        channel: int = int(args[1])
-        self.session.channels[channel].output_function = OUT_FUNC.CURRENT
-        self.session.channels[channel].voltage_limit = 1.0
+        channel: str = str(args[1])
+        ## 
+        # self.session.channels[channel].current_level_autorange = True
+        self.session.channels[channel].current_level_range = abs(value)
         self.session.channels[channel].current_level = value
-
-    def MEAS_CURR(self, *args) -> float:
+       
+    def VOLT_MEAS(self, *args) -> float:
         '''
         arg0: bool = Channel
         '''
-        channel: int = int(args[0])
-        meas = self.session.channels[channel].measure(TYPES.CURRENT)
+        channel: str = str(args[0])
+        meas = self.session.channels[channel].measure(TYPES.VOLTAGE.value)
         return meas
+        
+    def CURR_MEAS(self, *args) -> float:
+        '''
+        arg0: str = Channel
+        '''
+        channel: str = str(args[0])
+        meas = self.session.channels[channel].measure(TYPES.CURRENT.value)
+        return meas
+
 
 ''' TEST
 ----------------------------------------------------------------------- '''
 
-# inst = INSTRUMENT("PXI1Slot3")
+# def STANDARD_ROUTINE():
+#     with nidcpower.Session("PXI1Slot3") as session:
+#         from time import sleep
+#         # session.initiate()
+#         print(session.instrument_manufacturer, session.instrument_model)
+#         print(session.output_function)
 
-# # idn = inst.DEVICE_INFO()
-# # print(idn)
+#         ## VOLTAGE
+#         session.channels['0'].output_function = nidcpower.OutputFunction.DC_VOLTAGE
+#         session.channels['0'].voltage_level_autorange = True
+#         session.channels['0'].current_limit_autorange = True
+#         session.channels['0'].voltage_level = 4
+#         session.initiate()
 
-# inst.SET_VOLT(1, 0)
-# inst.SET_VOLT(0, 1)
-# inst.SET_VOLT(0, 2)
-# inst.OUTPUT(1)
+#         ## CURRENT
+#         # session.channels['0'].output_function = nidcpower.OutputFunction.DC_CURRENT
+#         # session.channels['0'].current_level_autorange = True
+#         # session.channels['0'].voltage_level_autorange = True
+#         # session.channels['0'].current_level = 0.4
+
+#         ## 
+#         session.output_enabled = False
+#         sleep(1)
+#         session.channels['0'].output_enabled = True
+#         # session.output_enabled = True
+        
+#         # session.initiate()
+#         sleep(5)
+#         # meas = session.channels['0'].measure(nidcpower.MeasurementTypes.VOLTAGE)
+#         meas = session.channels['0'].measure(TYPES.VOLTAGE.value)
+#         print(meas)
+#         session.output_enabled = False
+
+#     print("FIN")
