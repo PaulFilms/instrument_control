@@ -33,8 +33,8 @@ class MEASURES(Enum):
     VOLTAGE_AC = "VOLT:AC"
     CURRENT_DC = "CURR:DC"
     CURRENT_AC = "CURR:AC"
-    RESISTANCE_2W = ""
-    RESISTANCE_4W = ""
+    RESISTANCE_2W = "RES"
+    RESISTANCE_4W = "FRES"
     FREQUENCY = "FREQ"
 
 NMB_FUNCTIONS: List[str] = [
@@ -46,29 +46,38 @@ NMB_FUNCTIONS: List[str] = [
 class INSTRUMENT(VISA):
     '''
     '''
+    NMB_FUNCTIONS: List[str] = [
+        'DEVICE_INFO',
+        'CONFIG',
+        'MEAS'
+    ]
+
     def __init__(self, resource: str, timeout: int = 10):
         super().__init__(resource, timeout)
     
     def CONFIG(self, *args) -> None:
         '''
-        arg1: int = RANGE VALUE
-        arg2: float = UNIT
+        arg0: str = UNIT
+        
+        `UNITS:`
+            - VOLTAGE_DC
+            - VOLTAGE_AC
+            - CURRENT_DC
+            - CURRENT_AC
+            - RESISTANCE_2W
+            - RESISTANCE_4W
+            - FREQUENCY
         '''
-        ## ARG1 (RANGE VALUE)
-        range_value: float
-        if len(args) > 0 and args[0] and args[0] != "": 
-            range_value = float(args[0])
-        else: 
-            range_value = -1
-        ## ARG2 (UNIT)
-        unit: str
-        if len(args) > 1 and args[1] and args[1] != "": 
-            unit = ""
-        else: 
-            unit = ""
+        ## ARG0 (UNIT)
+        unit = args[0]
+        try:
+            unit = MEASURES[unit].value
+        except:
+            unit = MEASURES.VOLTAGE_DC.value
         ## 
         self.WR('*CLS')
-        # INCOMPLETE
+        self.WR(f'CONF:{unit}')
+        self.OPC()
     
     def MEAS(self, *args) -> float:
         '''
