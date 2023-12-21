@@ -33,21 +33,12 @@ import nidmm # type: ignore[import-untyped]
 class INSTRUMENT:
     def __init__(self, resource: str = ""):
         self.session = nidmm.Session(resource)
-<<<<<<< HEAD
         
-=======
-
->>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
         # 
         self.NMB_FUNCTIONS: List[str] = [
             'DEVICE_INFO',
             'SELF_TEST',
             'SELF_CAL',
-<<<<<<< HEAD
-=======
-            'MEAS_INFO',
-            'MEAS',
->>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
             'CONFIG_VDC',
             'CONFIG_VAC',
             'CONFIG_RES_2W',
@@ -55,15 +46,10 @@ class INSTRUMENT:
             'CONFIG_IDC',
             'CONFIG_IAC',
             'CONFIG_FREQ',
-<<<<<<< HEAD
             'CONFIG_TEMP',
             'MEAS_INFO',
             'MEAS',
         ]
-=======
-            'CONFIG_TEMP'
-            ]
->>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
     
     def CLOSE(self) -> None:
         self.session.close()
@@ -89,29 +75,6 @@ class INSTRUMENT:
         No args
         '''
         self.session.self_cal()
-
-    def MEAS_INFO(self, *args) -> str:
-        '''
-        Get info (Measure Function, Range, Digits) about config
-        '''
-        FUNCTION = self.session.function
-        RANGE = self.session.range
-        DIGITS = self.session.resolution_digits
-        config = f"{FUNCTION}, {RANGE}, {DIGITS}"
-        return config
-
-    def MEAS(self, *args) -> float:
-        '''
-        No args
-        Get measaure like float value
-        '''
-        measure = self.session.read()
-        try:
-            measure = float(measure)
-            return measure
-        except:
-            print("MEAS ERROR / Float value")
-            return 0.0  
 
     def CONFIG_VDC(self, *args) -> None:
         '''
@@ -289,3 +252,27 @@ class INSTRUMENT:
                 range = float(range_value),
                 resolution_digits= float(digits_value)
                 )
+
+    def MEAS_INFO(self, *args) -> str:
+        '''
+        Get info (Measure Function, Range, Digits) about config
+
+        No args
+        '''
+        FUNCTION = self.session.function
+        RANGE = self.session.range
+        DIGITS = self.session.resolution_digits
+        return f"{FUNCTION}, {RANGE}, {DIGITS}"
+
+    def MEAS(self, *args) -> float:
+        '''
+        Get measaure like float value
+
+        No args
+        '''
+        try:
+            measure = self.session.read()
+            return float(measure)
+        except:
+            print("MEAS ERROR / Float value")
+            return 0.0  

@@ -8,11 +8,7 @@ TASK:
 WARNINGS:
 '''
 
-<<<<<<< HEAD
-__version__ = '2023.20.20'
-=======
-__update__ = '2023.12.20'
->>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
+__version__ = '2023.12.20'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -32,8 +28,6 @@ class INSTRUMENT(VISA):
         super().__init__(resource, timeout)
 
         # 
-<<<<<<< HEAD
-=======
         self.NMB_FUNCTIONS: List[str] = [
             'MEAS',
             'OPER',
@@ -44,7 +38,6 @@ class INSTRUMENT(VISA):
         ]
 
         # 
->>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
         self.WR("*CLS")
         IDN = self.RD("*IDN?; *WAI")
         MODEL = IDN.split(chr(44))[1]
@@ -66,6 +59,7 @@ class INSTRUMENT(VISA):
     
     def OPER(self, *args) -> None:
         '''
+        No args
         '''
         self.WR("*CLS")
         # self.WR("ESE 1")
@@ -75,6 +69,7 @@ class INSTRUMENT(VISA):
 
     def STBY(self, *args) -> None:
         '''
+        No args
         '''
         self.WR("*CLS")
         # self.WR("ESE 1")
