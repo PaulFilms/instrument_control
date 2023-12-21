@@ -37,4 +37,6 @@ class SPECIAL_INSTRUMENTS(Enum):
     PXI_DMM = PXI_DMM
     PXI_DCPOWER = PXI_DCPOWER
     # PXI_565X = PXI_565X
+
+
     

@@ -33,12 +33,21 @@ import nidmm # type: ignore[import-untyped]
 class INSTRUMENT:
     def __init__(self, resource: str = ""):
         self.session = nidmm.Session(resource)
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
         # 
         self.NMB_FUNCTIONS: List[str] = [
             'DEVICE_INFO',
             'SELF_TEST',
             'SELF_CAL',
+<<<<<<< HEAD
+=======
+            'MEAS_INFO',
+            'MEAS',
+>>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
             'CONFIG_VDC',
             'CONFIG_VAC',
             'CONFIG_RES_2W',
@@ -46,10 +55,15 @@ class INSTRUMENT:
             'CONFIG_IDC',
             'CONFIG_IAC',
             'CONFIG_FREQ',
+<<<<<<< HEAD
             'CONFIG_TEMP',
             'MEAS_INFO',
             'MEAS',
         ]
+=======
+            'CONFIG_TEMP'
+            ]
+>>>>>>> 186327c0e10c24b882d26aa736671ebc5a1fe075
     
     def CLOSE(self) -> None:
         self.session.close()

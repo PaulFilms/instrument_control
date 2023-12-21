@@ -4,17 +4,16 @@ Especial functions for the device:
     - MANUFACTURER: HP / AGILENT / KEYSIGHT
     - MODEL: 344XX
 
-\n
-`TASK:`
-    - MEASURES Enum Class
-    - CONFIG FUNCTIONS
 
-\n
-`WARNINGS:`
-    - @
+TASK:
+    - ...
+
+
+WARNINGS:
+    - ...
 '''
 
-__update__ = '2023.12.05'
+__update__ = '2023.12.20'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''

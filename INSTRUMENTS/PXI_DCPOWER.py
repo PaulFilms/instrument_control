@@ -16,8 +16,8 @@ __update__ = '2023.12.18'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
-from typing import List
 from enum import Enum
+from typing import List
 
 ''' MAIN LIBRARIES '''
 import nidcpower
