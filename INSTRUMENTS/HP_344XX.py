@@ -37,23 +37,18 @@ class MEASURES(Enum):
     RESISTANCE_4W = "FRES"
     FREQUENCY = "FREQ"
 
-NMB_FUNCTIONS: List[str] = [
-    'DEVICE_INFO',
-    'CONFIG',
-    'MEAS'
-]
-
 class INSTRUMENT(VISA):
     '''
     '''
-    NMB_FUNCTIONS: List[str] = [
-        'DEVICE_INFO',
-        'CONFIG',
-        'MEAS'
-    ]
-
     def __init__(self, resource: str, timeout: int = 10):
         super().__init__(resource, timeout)
+
+        # 
+        self.NMB_FUNCTIONS: List[str] = [
+            'DEVICE_INFO',
+            'CONFIG',
+            'MEAS'
+        ]
     
     def CONFIG(self, *args) -> None:
         '''

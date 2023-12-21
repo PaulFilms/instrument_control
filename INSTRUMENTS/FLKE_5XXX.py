@@ -8,7 +8,7 @@ TASK:
 WARNINGS:
 '''
 
-__update__ = '2023.10.10'
+__version__ = '2023.20.20'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' MAIN LIBRARIES '''
@@ -21,17 +21,10 @@ from instrument_control.VISA import INSTRUMENT as VISA
 class INSTRUMENT(VISA):
     '''
     '''
-    NMB_FUNCTIONS = [
-        'MEAS',
-        'OPER',
-        'STBY',
-        'OUT_VPP',
-        'TWO_WIRES',
-        'FOUR_WIRES'
-    ]
-
     def __init__(self, resource: str = "", timeout: int = 10):
         super().__init__(resource, timeout)
+
+        # 
         self.WR("*CLS")
         IDN = self.RD("*IDN?; *WAI")
         MODEL = IDN.split(chr(44))[1]
@@ -40,6 +33,16 @@ class INSTRUMENT(VISA):
             self.MODEL = "5700"
         if MODEL[0:2] == "55":
             self.MODEL = "5500"
+
+        # 
+        self.NMB_FUNCTIONS = [
+            'MEAS',
+            'OPER',
+            'STBY',
+            'OUT_VPP',
+            'TWO_WIRES',
+            'FOUR_WIRES'
+        ]
     
     def OPER(self, *args) -> None:
         '''
