@@ -8,8 +8,11 @@ TASK:
 WARNINGS:
 '''
 
-__update__ = '2023.10.10'
+__update__ = '2023.12.20'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
+
+''' SYSTEM LIBRARIES '''
+from typing import List
 
 ''' MAIN LIBRARIES '''
 from instrument_control.VISA import INSTRUMENT as VISA
@@ -21,17 +24,20 @@ from instrument_control.VISA import INSTRUMENT as VISA
 class INSTRUMENT(VISA):
     '''
     '''
-    NMB_FUNCTIONS = [
-        'MEAS',
-        'OPER',
-        'STBY',
-        'OUT_VPP',
-        'TWO_WIRES',
-        'FOUR_WIRES'
-    ]
-
     def __init__(self, resource: str = "", timeout: int = 10):
         super().__init__(resource, timeout)
+
+        # 
+        self.NMB_FUNCTIONS: List[str] = [
+            'MEAS',
+            'OPER',
+            'STBY',
+            'OUT_VPP',
+            'TWO_WIRES',
+            'FOUR_WIRES'
+        ]
+
+        # 
         self.WR("*CLS")
         IDN = self.RD("*IDN?; *WAI")
         MODEL = IDN.split(chr(44))[1]
@@ -74,14 +80,17 @@ class INSTRUMENT(VISA):
         '''
         `arg1:` float = Resistance Value
 
-        \n`5500(s) Parameter: `
+        `5500(s) Parameter: `
+
             - NONE (Turns off impedance compensation circuitry)
             - WIRE2 (Turns on the 2-wire impedance compensation circuitry)
             - WIRE4 (Turns on the 4-wire impedance compensation circuitry)
-        \n`Example: `
-            - ZCOMP WIRE2
-        '''
         
+        `Example: `
+
+            - ZCOMP WIRE2
+        
+        '''
         ## ARG1 (Resistance Value)
         if len(args) > 0 and args[0] and args[0] != "": 
             value = float(args[0])

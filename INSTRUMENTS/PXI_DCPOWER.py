@@ -16,8 +16,8 @@ __update__ = '2023.12.18'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
-from typing import List
 from enum import Enum
+from typing import List
 
 ''' MAIN LIBRARIES '''
 import nidcpower
@@ -25,18 +25,6 @@ import nidcpower
 
 ''' MAIN CLASS
 -------------------------------------------------------- '''
-
-# NMB_FUNCTIONS: List[str] = [
-#     'DEVICE_INFO',
-#     'RESET',
-#     'OUTPUT',
-#     'VOLT_CONF',
-#     'CURR_CONF',
-#     'VOLT_SET',
-#     'CURR_SET',
-#     'VOLT_MEAS',
-#     'CURR_MEAS',
-# ]
 
 BOOLEANS: list = ("TRUE", True, 1, "1", "On", "ON")
 
@@ -51,23 +39,24 @@ class OUT_FUNC(Enum):
 class INSTRUMENT:
     '''
     '''
-    NMB_FUNCTIONS: List[str] = [
-        'DEVICE_INFO',
-        'RESET',
-        'OUTPUT',
-        'VOLT_CONF',
-        'CURR_CONF',
-        'VOLT_SET',
-        'CURR_SET',
-        'VOLT_MEAS',
-        'CURR_MEAS',
-    ]
-
     def __init__(self, resource: str = ""):
         self.session = nidcpower.Session(resource)
         # self.session.voltage_level_autorange = True
         # self.session.current_level_autorange = True
         # self.session.initiate()
+
+        # 
+        self.NMB_FUNCTIONS: List[str] = [
+            'DEVICE_INFO',
+            'RESET',
+            'OUTPUT',
+            'VOLT_CONF',
+            'CURR_CONF',
+            'VOLT_SET',
+            'CURR_SET',
+            'VOLT_MEAS',
+            'CURR_MEAS',
+        ]
 
     def CLOSE(self) -> None:
         '''

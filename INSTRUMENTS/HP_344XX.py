@@ -4,17 +4,16 @@ Especial functions for the device:
     - MANUFACTURER: HP / AGILENT / KEYSIGHT
     - MODEL: 344XX
 
-\n
-`TASK:`
-    - MEASURES Enum Class
-    - CONFIG FUNCTIONS
 
-\n
-`WARNINGS:`
-    - @
+TASK:
+    - ...
+
+
+WARNINGS:
+    - ...
 '''
 
-__update__ = '2023.12.05'
+__update__ = '2023.12.20'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -37,23 +36,18 @@ class MEASURES(Enum):
     RESISTANCE_4W = "FRES"
     FREQUENCY = "FREQ"
 
-NMB_FUNCTIONS: List[str] = [
-    'DEVICE_INFO',
-    'CONFIG',
-    'MEAS'
-]
-
 class INSTRUMENT(VISA):
     '''
     '''
-    NMB_FUNCTIONS: List[str] = [
-        'DEVICE_INFO',
-        'CONFIG',
-        'MEAS'
-    ]
-
     def __init__(self, resource: str, timeout: int = 10):
         super().__init__(resource, timeout)
+
+        # 
+        self.NMB_FUNCTIONS: List[str] = [
+            'DEVICE_INFO',
+            'CONFIG',
+            'MEAS'
+        ]
     
     def CONFIG(self, *args) -> None:
         '''
