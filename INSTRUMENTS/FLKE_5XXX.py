@@ -12,7 +12,7 @@ __version__ = '2023.12.20'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
-from typing import List
+from typing import List, Tuple
 
 ''' MAIN LIBRARIES '''
 from instrument_control.VISA import INSTRUMENT as VISA
@@ -28,7 +28,7 @@ class INSTRUMENT(VISA):
         super().__init__(resource, timeout)
 
         # 
-        self.NMB_FUNCTIONS: List[str] = [
+        self.NMB_FUNCTIONS: Tuple[str] = [
             'MEAS',
             'OPER',
             'STBY',
