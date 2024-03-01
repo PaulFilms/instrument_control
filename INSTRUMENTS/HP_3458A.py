@@ -12,7 +12,7 @@ WARNINGS:
 
 '''
 
-__version__ = '2024.02.27'
+__version__ = '2024.03.01'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -33,11 +33,11 @@ NMB_FUNCTIONS: List[str] = [
 ]
 
 class MEASURES(Enum):
-    VOLTAGE_DC = "DCV AUTO"
-    VOLTAGE_AC = "ACV AUTO"
-    CURRENT_DC = ""
-    CURRENT_AC = ""
-    RESISTANCE_2W = ""
+    VOLTAGE_DC = "DCV"
+    VOLTAGE_AC = "ACV"
+    CURRENT_DC = "DCI"
+    CURRENT_AC = "ACI"
+    RESISTANCE_2W = "OHM"
     RESISTANCE_4W = ""
     FREQUENCY = ""
 
@@ -49,18 +49,12 @@ class INSTRUMENT(VISA):
         # self.DEVICE.read_termination = '\n'
         # self.DEVICE.write_termination = '\n'
 
-    def CONFIG(self, *args) -> None:
+    def CONFIG(self, **kwargs) -> None:
         '''
         INCOMPLETE
         
-        `UNITS:`
-            - VOLTAGE_DC
-            - VOLTAGE_AC
-            - CURRENT_DC
-            - CURRENT_AC
-            - RESISTANCE_2W
-            - RESISTANCE_4W
-            - FREQUENCY
+        kwargs:
+            - measure
         
         -------
 
@@ -78,9 +72,13 @@ class INSTRUMENT(VISA):
         instrumentVM.WriteString("TERM SCANNER", True)
         instrumentVM.WriteString("CHAN 0", True)
         '''
-        # self.WR('DCV AUTO')
+        if 'measure' in kwargs:
+            if type(kwargs['measure']) == MEASURES:
+                self.WR(f'{kwargs['measure'].value} AUTO')
+            else:
+                self.WR(f'{kwargs['measure']} AUTO')
         self.WR('NPLC 5,AUTO')
-        self.WR('NDIG 6')
+        self.WR('NDIG 8')
         pass
 
     def MEAS(self):
