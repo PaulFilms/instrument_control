@@ -1,10 +1,10 @@
-r'''
+'''
 NOTES:
 TASK:
 WARNINGS:
 '''
 
-__update__ = '2023.10.10'
+__update__ = '2024.02.29'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -17,22 +17,30 @@ import pyvisa
 class INSTRUMENT:
     '''
     visa_resource: str
-        - GPIB -> GPIB0::17::INSTR
-        - USB -> USB0::0x0AAD::0x014E::101060::INSTR
-        - PXI -> PXI1Slot2
+        - GPIB    -> GPIB0::17::INSTR
+        - USB     -> USB0::0x0AAD::0x014E::101060::INSTR
+        - PXI     -> PXI1Slot2
+        - RS-232  -> ASRL1::INSTR
     
     timeout: int (seconds) = 10 seconds default
     '''
-    def __init__(self, resource: str, timeout: int = 10) -> None:
+    def __init__(self, resource: str, timeout: int = 10, termination: bool = None) -> None:
         RM = pyvisa.ResourceManager()
         RM.list_resources()
         self.DEVICE = RM.open_resource(resource)
-        self.DEVICE.timeout = timeout * 1000 # miliseconds
+        self.DEVICE.timeout = int(timeout*1000)
+        if termination:
+            self.DEVICE.read_termination = '\n'
+            self.DEVICE.write_termination = '\n'
     
     def CLOSE(self) -> None:
+        '''
+        '''
         self.DEVICE.close()
 
     def DEVICE_INFO(self) -> str:
+        '''
+        '''
         self.WR("*CLS")
         IDN = self.RD("*IDN?; *WAI")
         IDNL = IDN.split(chr(44))
