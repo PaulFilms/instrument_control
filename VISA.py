@@ -1,10 +1,11 @@
 '''
-NOTES:
+# Toolset for remote control of instruments VISA
+
 TASK:
 WARNINGS:
 '''
 
-__update__ = '2024.02.29'
+__update__ = '2024.03.04'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''

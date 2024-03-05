@@ -4,14 +4,20 @@ Especial functions for the device:
     - MANUFACTURER: FLUKE
     - MODEL: 5xxx
 
+
 TASK:
+    - 5080A Functions
+    - SCOPE Functions
+
 WARNINGS:
+    -
 '''
 
 __version__ = '2023.12.20'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
+from enum import Enum
 from typing import List, Tuple
 
 ''' MAIN LIBRARIES '''
@@ -21,6 +27,17 @@ from instrument_control.VISA import INSTRUMENT as VISA
 ''' MAIN CLASS
 -------------------------------------------------------- '''
 
+class SCOPE_MODE(Enum):
+    OFF = "OFF"
+    VOLT = "VOLT"
+    EDGE = "EDGE"
+    LEVSINE = "LEVSINE"
+    MARKER = "MARKER"
+
+class SCOPE_IMP(Enum):
+    Z1M = "Z1M"
+    Z50 = "Z50"
+
 class INSTRUMENT(VISA):
     '''
     '''
@@ -28,14 +45,14 @@ class INSTRUMENT(VISA):
         super().__init__(resource, timeout)
 
         # 
-        self.NMB_FUNCTIONS: Tuple[str] = [
+        self.NMB_FUNCTIONS: Tuple[str] = (
             'MEAS',
             'OPER',
             'STBY',
             'OUT_VPP',
             'TWO_WIRES',
             'FOUR_WIRES'
-        ]
+        )
 
         # 
         self.WR("*CLS")
@@ -145,3 +162,16 @@ class INSTRUMENT(VISA):
         
         # 
         self.WR(f"*WAI")
+    
+    def SCOPE(self, LEVEL: float = 0, FREQ_PER: float = 0, OUT_IMP: str = SCOPE_IMP.Z1M.value, MODE: str = SCOPE_MODE.VOLT.value):
+        '''
+        FREQ_PER / Frequency (Hz), Pert
+        '''
+        self.WR(f"SCOPE {MODE};")
+        self.WR(f"OUT {LEVEL} HZ")
+        if MODE == SCOPE_MODE.MARKER.value:
+            self.WR(f"OUT {FREQ_PER} MS")
+        else:
+            self.WR(f"OUT {FREQ_PER} HZ")
+        self.WR(f"OUT_IMP {OUT_IMP}")
+        self.WR("*WAI")
