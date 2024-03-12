@@ -1,5 +1,5 @@
 '''
-# Py Console
+# Test Console (INCOMPLETE)
 
 TASK:
 WARNINGS:
@@ -9,7 +9,7 @@ __version__ = '2024.03.04'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
-pass
+import os
 
 ''' MAIN LIBRARIES '''
 from pydeveloptools import func_system as SYS
@@ -19,13 +19,36 @@ from instrument_control.VISA import INSTRUMENT as VISA
 ''' MAIN
 -------------------------------------------------------- '''
 
-class pyConsole:
-    def __init__(self, NMEAS: int=5) -> None:
-        pass
+def TITLE(text: str) -> None:
+    print(text)
+    print("-------------------------------------------------------------")
+
+class APP:
+    def __init__(self, NMEAS: int=5, TEMPLATE: str = None) -> None:
+        self.NMEAS: int = NMEAS
+        self.TEMPLATE = TEMPLATE
+
+        ## INIT
+        self.CMD_HEADER()
+        self.TEMPLATE_CHECK()
+        # 
+        
+        # 
+        print("STOP APP")
+        print()
+
+    def TEMPLATE_CHECK(self):
+        if self.TEMPLATE:
+            TITLE('TEMPLATE AVAILABLE')
+        else:
+            TITLE("TEMPLATE NOT AVAILABLE")
 
     def CMD_HEADER(self) -> None:
+        '''
+        Print Version Info
+        '''
         print()
-        print("PYCONSOLE APP")
+        print("TEST PYCONSOLE APP")
         print("-------------------------------------------------------------")
         print("version: ", __version__)
         print("autor: ", __author__)
@@ -34,6 +57,8 @@ class pyConsole:
         print()
 
     def INPUT_FORM(self, TITLE: str = "", LIST: list = []) -> None:
+        '''
+        '''
         # value = None
         print(f"{TITLE}:")
         print("00 - [EXIT]")
@@ -106,3 +131,9 @@ class pyConsole:
         except:
             QT.INFOBOX("ERROR", "PROBLEMS IN TEST")
             return
+
+''' APP
+-------------------------------------------------------- '''
+
+if __name__ == '__main__':
+    APP()
