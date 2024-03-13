@@ -10,40 +10,53 @@ __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
 import os
+from dataclasses import dataclass
+from typing import Tuple, List
 
 ''' MAIN LIBRARIES '''
 from pydeveloptools import func_system as SYS
 from instrument_control.VISA import INSTRUMENT as VISA
 
+''' JUPYTER LIBRARIES'''
+# import ipywidgets as widgets
+# from IPython.display import display
+
 
 ''' MAIN
 -------------------------------------------------------- '''
 
-def TITLE(text: str) -> None:
-    print(text)
-    print("-------------------------------------------------------------")
+
+
+@dataclass
+class TEST:
+    TITLE: str
+    CONFIG: str
+    LOOP_LIST: tuple
 
 class APP:
-    def __init__(self, NMEAS: int=5, TEMPLATE: str = None) -> None:
+    '''
+    '''
+    def __init__(self, NMEAS: int=5, TEMPLATE: List[TEST] = None) -> None:
         self.NMEAS: int = NMEAS
         self.TEMPLATE = TEMPLATE
 
         ## INIT
-        self.CMD_HEADER()
-        self.TEMPLATE_CHECK()
+        self.CMD_WR_HEADER()
+        self.INPUT_FORM()
+        # self.TEMPLATE_CHECK()
         # 
-        
+        pass
         # 
         print("STOP APP")
         print()
 
-    def TEMPLATE_CHECK(self):
-        if self.TEMPLATE:
-            TITLE('TEMPLATE AVAILABLE')
-        else:
-            TITLE("TEMPLATE NOT AVAILABLE")
+    # def TEMPLATE_CHECK(self):
+    #     if self.TEMPLATE:
+    #         TITLE('TEMPLATE AVAILABLE')
+    #     else:
+    #         TITLE("TEMPLATE NOT AVAILABLE")
 
-    def CMD_HEADER(self) -> None:
+    def CMD_WR_HEADER(self) -> None:
         '''
         Print Version Info
         '''
@@ -56,20 +69,27 @@ class APP:
         print("-------------------------------------------------------------")
         print()
 
-    def INPUT_FORM(self, TITLE: str = "", LIST: list = []) -> None:
+    def CMD_WR_TITLE(self, text: str) -> None:
+        '''
+        '''
+        print(text)
+        print("-------------------------------------------------------------")
+        print()
+
+    def INPUT_FORM(self) -> None:
         '''
         '''
         # value = None
-        print(f"{TITLE}:")
+        # print(f"{TITLE}:")
         print("00 - [EXIT]")
         id = 1
-        for point in LIST:
-            print(f'{id:02d} - {point}')
+        for point in self.TEMPLATE:
+            print(f'{id:02d} - {point.TITLE}')
             id += 1
         try:
             value = int(input("_ "))
             print()
-            if value < 0 or value > len(LIST):
+            if value < 0 or value > len(self.TEMPLATE):
                 value = None
         except:
             value = None
@@ -77,7 +97,7 @@ class APP:
             print()
             print("¡INPUT NOT VALID!")
             print()
-        return value
+        # return value
 
     def TEST_RUN(self):
         '''
@@ -132,8 +152,9 @@ class APP:
             QT.INFOBOX("ERROR", "PROBLEMS IN TEST")
             return
 
+
 ''' APP
 -------------------------------------------------------- '''
 
-if __name__ == '__main__':
-    APP()
+# if __name__ == '__main__':
+#     APP()
