@@ -1,5 +1,5 @@
 # `instrument_control`
-Python control of Measure Instruments under VISA, RS-232 (Incomplete), and NI PXI
+Python control of Measurement Instruments under VISA, RS-232, NI PXI and more.
 
 
 ## Installation
