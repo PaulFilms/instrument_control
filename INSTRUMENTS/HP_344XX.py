@@ -49,6 +49,13 @@ class INSTRUMENT(VISA):
             'MEAS'
         ]
     
+    def DEVICE_INFO(self, *args) -> str:
+        '''
+        Get info (Manufacturer, Model, Serial Id) about device
+        '''
+        IDN = self.RD("*IDN?; *WAI")
+        return IDN
+    
     def CONFIG(self, *args) -> None:
         '''
         arg0: str = UNIT

@@ -27,9 +27,9 @@ from instrument_control.VISA import INSTRUMENT as VISA
 -------------------------------------------------------- '''
 
 NMB_FUNCTIONS: Tuple[str] = (
-    'DEVICE_INFO',
-    'CONFIG',
-    'MEAS'
+    # 'DEVICE_INFO',
+    # 'CONFIG',
+    # 'MEAS'
 )
 
 class MEASURES(Enum):
@@ -48,6 +48,14 @@ class INSTRUMENT(VISA):
         super().__init__(resource, timeout=timeout, termination=True)
         # self.DEVICE.read_termination = '\n'
         # self.DEVICE.write_termination = '\n'
+
+    def DEVICE_INFO(self, *args) -> str:
+        '''
+        Get info (Manufacturer, Model, Serial Id) about device
+        '''
+        self.WR("CLEAR")
+        IDN = self.RD("ID?")
+        return IDN
 
     def CONFIG(self, **kwargs) -> None:
         '''

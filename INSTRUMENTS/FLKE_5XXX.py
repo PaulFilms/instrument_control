@@ -74,6 +74,13 @@ class INSTRUMENT(VISA):
             'FOUR_WIRES'
         ]
     
+    def DEVICE_INFO(self, *args) -> str:
+        '''
+        Get info (Manufacturer, Model, Serial Id) about device
+        '''
+        IDN = self.RD("*IDN?; *WAI")
+        return IDN
+
     def OPER(self, *args) -> None:
         '''
         No args

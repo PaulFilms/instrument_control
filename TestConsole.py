@@ -16,6 +16,7 @@ from typing import Tuple, List
 ''' MAIN LIBRARIES '''
 from pydeveloptools import func_system as SYS
 from instrument_control.VISA import INSTRUMENT as VISA
+from instrument_control.SPECIAL import SPECIAL_INSTRUMENTS as SPECIAL
 
 ''' JUPYTER LIBRARIES'''
 # import ipywidgets as widgets
@@ -25,13 +26,18 @@ from instrument_control.VISA import INSTRUMENT as VISA
 ''' MAIN
 -------------------------------------------------------- '''
 
-
+@dataclass
+class INSTRUMENT:
+    NAME: str
+    RESOURCE: str
+    TYPE: VISA | SPECIAL
 
 @dataclass
 class TEST:
     TITLE: str
     CONFIG: str
     LOOP_LIST: tuple
+    PROCEDURE: classmethod
 
 class APP:
     '''
@@ -43,9 +49,6 @@ class APP:
         ## INIT
         self.CMD_WR_HEADER()
         self.INPUT_FORM()
-        # self.TEMPLATE_CHECK()
-        # 
-        pass
         # 
         print("STOP APP")
         print()
