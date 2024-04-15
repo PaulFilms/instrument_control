@@ -15,6 +15,7 @@ from typing import Tuple, List
 
 ''' MAIN LIBRARIES '''
 from pydeveloptools import func_system as SYS
+from pydeveloptools import func_xlsx as XLS
 from instrument_control.VISA import INSTRUMENT as VISA
 from instrument_control.SPECIAL import SPECIAL_INSTRUMENTS as SPECIAL
 
@@ -42,9 +43,10 @@ class TEST:
 class APP:
     '''
     '''
-    def __init__(self, NMEAS: int=5, TEMPLATE: List[TEST] = None) -> None:
+    def __init__(self, REPORT: XLS.XLSREPORT = None, PROCEDURES: list = None, NMEAS: int=5) -> None:
         self.NMEAS: int = NMEAS
-        self.TEMPLATE = TEMPLATE
+        self.REPORT = REPORT
+        self.PROCEDURES = PROCEDURES
 
         ## INIT
         self.CMD_WR_HEADER()
