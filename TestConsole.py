@@ -81,28 +81,39 @@ class APP:
         print("-------------------------------------------------------------")
         print()
 
+    def REPORT_HEADER(self) -> None:
+        '''
+        '''
+        self.REPORT.WR_HEADER(self.REPORT.ROW, 1, "REPORT")
+        self.REPORT.WR_HEADER(self.REPORT.ROW, 3, SYS.DATE_GET_NOW())
+        self.REPORT.ROW_INC()
+        self.REPORT.LOW_BORDER(self.REPORT.ROW)
+        self.REPORT.ROW_INC(3)
+        self.REPORT.SAVE()
+
     def INPUT_FORM(self) -> None:
         '''
         '''
-        # value = None
-        # print(f"{TITLE}:")
-        print("00 - [EXIT]")
-        id = 1
-        for point in self.TEMPLATE:
-            print(f'{id:02d} - {point.TITLE}')
-            id += 1
-        try:
-            value = int(input("_ "))
-            print()
-            if value < 0 or value > len(self.TEMPLATE):
-                value = None
-        except:
-            value = None
-        if value == None:
-            print()
-            print("¡INPUT NOT VALID!")
-            print()
-        # return value
+        # # value = None
+        # # print(f"{TITLE}:")
+        # print("00 - [EXIT]")
+        # id = 1
+        # for point in self.TEMPLATE:
+        #     print(f'{id:02d} - {point.TITLE}')
+        #     id += 1
+        # try:
+        #     value = int(input("_ "))
+        #     print()
+        #     if value < 0 or value > len(self.TEMPLATE):
+        #         value = None
+        # except:
+        #     value = None
+        # if value == None:
+        #     print()
+        #     print("¡INPUT NOT VALID!")
+        #     print()
+        # # return value
+        menu: str = "\nSELECT PROCEDURE:\n\n"
 
     def TEST_RUN(self):
         '''
@@ -163,3 +174,14 @@ class APP:
 
 # if __name__ == '__main__':
 #     APP()
+
+# def teso():
+#     print("PENE")
+
+# tes = TEST("POLLA", "dmm ->", (1,2,3,4), teso)
+
+# print(tes.TITLE)
+# print(tes.CONFIG)
+# for v in tes.LOOP_LIST:
+#     print(v)
+# tes.PROCEDURE()

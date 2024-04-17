@@ -15,7 +15,8 @@ EXCEL.SAVE()
 ## INSTRUMENTS
 from instrument_control import VISA
 from instrument_control.SPECIAL import HP_344XX
-DUT = VISA.INSTRUMENT("GPIB0::5::INSTR")
+GPIB = 5
+DUT = VISA.INSTRUMENT(f"GPIB0::{GPIB}::INSTR")
 DMM = HP_344XX("USB0::0x2A8D::0x1301::SG60000138::INSTR")
 N_MEAS = 5
 
@@ -135,9 +136,10 @@ class PROCEDURES:
 
     @staticmethod
     def TEST():
-        DUT.WR("VSET 0")
-        DUT.WR("ISET 0")
+        DUT.WR("VSET 30")
+        DUT.WR("ISET 5")
         DUT.WR("OUT ON")
+        sleep(20)
 
 TEST = [PROCEDURES.STOP, PROCEDURES.VDC, PROCEDURES.ADC, PROCEDURES.TEST]
 
@@ -156,7 +158,8 @@ try:
     print()
     print("STOP TEST.")
     print()
-except:
+except Exception as e:
     print("ERROR !!")
+    print(e)
 PROCEDURES.STOP()
 EXCEL.close()

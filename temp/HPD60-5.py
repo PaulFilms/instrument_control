@@ -50,7 +50,7 @@ class PROCEDURES:
         for i in LIST:
             print("VALUE:", i)
             DUT.WR(f"VSET {i}")
-            DUT.WR("ISET 1.0")
+            DUT.WR("ISET 5.0")
             DUT.WR("OUT ON")
             sleep(1)
             DMM.CONFIG("VOLTAGE_DC")
@@ -134,9 +134,10 @@ class PROCEDURES:
 
     @staticmethod
     def TEST():
-        DUT.WR("VSET 0")
-        DUT.WR("ISET 0")
+        DUT.WR("VSET 50")
+        DUT.WR("ISET 5")
         DUT.WR("OUT ON")
+        sleep(20)
 
 TEST = [PROCEDURES.STOP, PROCEDURES.VDC, PROCEDURES.ADC, PROCEDURES.TEST]
 
@@ -154,6 +155,7 @@ try:
     print()
     print("STOP TEST.")
     print()
-except:
+except Exception as e:
     print("ERROR !!")
+    print(e)
 EXCEL.close()

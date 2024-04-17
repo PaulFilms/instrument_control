@@ -38,6 +38,3 @@ class SPECIAL_INSTRUMENTS(Enum):
     PXI_DCPOWER = PXI_DCPOWER
     # RS_URE3 = RS_URE3
     # PXI_565X = PXI_565X
-
-
-    
