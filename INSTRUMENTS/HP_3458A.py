@@ -68,7 +68,7 @@ class INSTRUMENT(VISA):
         
         -------
 
-        EXAMPLE:
+        `EXAMPLE From Manufacturer Manual:`
             instrumentVM.WriteString("PRESET", True)
             instrumentVM.WriteString("OFORMAT ASCII", True)
             instrumentVM.WriteString("BEEP", True)
