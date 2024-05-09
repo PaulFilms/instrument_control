@@ -75,7 +75,7 @@ class INSTRUMENT:
             VALUE = float(VALUE)
         return VALUE
     
-    def OPC(self) -> None:
+    def OPC(self, *args) -> None:
         self.DEVICE.write("*CLS")
         # self.DEVICE.write("ESE 1")
         # self.DEVICE.write("SRE 32")
