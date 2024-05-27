@@ -31,6 +31,9 @@ class INSTRUMENT(VISA):
         super().__init__(resource, timeout)
         self.WR("*CLS")
     
+    def CONFIG(self):
+        pass
+    
     def MEAS_VRMS(self, *args):
         '''
         arg1: int = FREQUENCY VALUE
