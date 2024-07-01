@@ -128,7 +128,7 @@ class INSTRUMENT(VISA):
         
         '''
         ## ARG1 (Resistance Value)
-        if len(args) > 0 and args[0] and args[0] != "": 
+        if len(args) > 0 and args[0]!= None and args[0] != "": 
             value = float(args[0])
         else: 
             value: float = 100000
@@ -150,7 +150,7 @@ class INSTRUMENT(VISA):
         `arg1:` float = Resistance Value
         '''
         ## ARG1 (Resistance Value)
-        if len(args) > 0 and args[0] and args[0] != "": 
+        if len(args) > 0 and args[0] != None and args[0] != "": 
             value = float(args[0])
         else: 
             value: float = 10000000
