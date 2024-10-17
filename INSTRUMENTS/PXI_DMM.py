@@ -16,14 +16,13 @@ mypyc:
     NMB_FUNCTIONS genera error al indicarlo de esa forma en el class, hay que plantearse sacarlo fuera
 '''
 
-__version__ = '2023.12.12' # + '_Compile'
+__version__ = '2024.10.17' # + '_Compile'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
 from typing import List
 
 ''' EXTERNAL LIBRARIES '''
-# import mypy_extensions
 import nidmm # type: ignore[import-untyped]
 
 
@@ -120,6 +119,7 @@ class INSTRUMENT:
                 range = float(range_value),
                 resolution_digits= float(digits_value)
                 )
+        self.session.ac_min_freq = 10
     
     def CONFIG_RES_2W(self, *args) -> None:
         '''
