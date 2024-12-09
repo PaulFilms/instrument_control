@@ -1,16 +1,16 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='instrument_control',
+    name='instrument_ctrl',
     version='2024.12.09',
     description='Python control of Measurement Instruments under VISA, RS-232, NI PXI and more.',
-    long_description = "README.md",
+    long_description = open('README.md').read(),
     author='Pablo GP',
     author_email='pablogonzalezpila@gmail.com',
     url='https://github.com/PaulFilms/instrument_control',
     packages=find_packages(),
     include_package_data=True,
-    package_data={'instrument_control': ['INSTRUMENTS/*']}, 
+    package_data={'instrument_ctrl': ['INSTRUMENTS/*']}, 
 )
 
 # ''' 
