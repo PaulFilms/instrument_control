@@ -4,7 +4,7 @@ pip install nirfsg
 https://pypi.org/project/nirfsg/
 '''
 
-__update__ = '2023.10.11'
+__update__ = '2024.12.09'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''

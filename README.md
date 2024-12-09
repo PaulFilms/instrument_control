@@ -22,6 +22,7 @@ Python control of Measurement Instruments under VISA, RS-232, NI PXI and more.
 Currently available devices:
 - FLKE_5XXX
 - HP_344XX
+- HP_3458A
 - PXI_DMM
 - PXI_DCPOWER
 

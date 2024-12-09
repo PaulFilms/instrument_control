@@ -12,7 +12,7 @@ WARNINGS:
 
 '''
 
-__update__ = '2023.12.18'
+__update__ = '2024.12.09'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''

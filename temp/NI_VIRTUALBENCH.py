@@ -3,7 +3,7 @@ INCOMPLETE
 PyMeasure
 '''
 
-__update__ = '2023.10.10'
+__update__ = '2024.12.09'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 from pymeasure.instruments.ni import VirtualBench

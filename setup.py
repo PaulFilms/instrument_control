@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='instrument_ctrl',
-    version='2024.12.09',
+    version='2024.12.10',
     description='Python control of Measurement Instruments under VISA, RS-232, NI PXI and more.',
     long_description = open('README.md').read(),
     author='Pablo GP',

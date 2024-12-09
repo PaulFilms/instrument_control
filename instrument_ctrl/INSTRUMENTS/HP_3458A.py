@@ -12,7 +12,7 @@ WARNINGS:
 
 '''
 
-__version__ = '2024.03.01'
+__version__ = '2024.12.09'
 __author__ = 'PABLO GONZALEZ PILA <pablogonzalezpila@gmail.com>'
 
 ''' SYSTEM LIBRARIES '''
@@ -20,7 +20,7 @@ from typing import Tuple, List
 from enum import Enum
 
 ''' MAIN LIBRARIES '''
-from instrument_control.VISA import INSTRUMENT as VISA
+from instrument_ctrl.VISA import INSTRUMENT as VISA
 
 
 ''' MAIN
