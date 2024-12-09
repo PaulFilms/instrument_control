@@ -2,10 +2,20 @@
 Python control of Measurement Instruments under VISA, RS-232, NI PXI and more.
 
 
-## Installation
 
-    > PYPI Not Available
-    > https://github.com/PaulFilms/instrument_control.git
+## Installation Method
+
+- Last released version
+
+   ```plaintext
+   Not available
+   ```
+
+- Latest development version
+
+   ```plaintext
+   pip install git+https://github.com/PaulFilms/instrument_control.git@main
+   ```
 
 
 ## Special Instruments
