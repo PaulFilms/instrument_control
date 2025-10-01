@@ -1,5 +1,8 @@
 from setuptools import setup, find_packages
 
+with open('requirements.txt') as f:
+    requirements = f.read().splitlines()
+
 setup(
     name='instrument_ctrl',
     version='2024.12.10',
@@ -11,6 +14,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     package_data={'instrument_ctrl': ['INSTRUMENTS/*']}, 
+    install_requires=requirements,
 )
 
 # ''' 
